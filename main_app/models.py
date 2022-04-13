@@ -11,10 +11,6 @@ class Grub(models.Model):
         max_length = 1,
         choices = TYPE,
     )
-    def __str__(self):
-       return self.type
-
-class Fresh(models.Model):
     exp: models.DateField(
         'exp date'
         # default=
@@ -25,12 +21,5 @@ class Fresh(models.Model):
     desc: models.TextField(max_length = 250)
     price: models.IntegerField()
 
-class Pantry(models.Model):
-    exp: models.DateField('exp date')
-    # photo: models.BinaryField
-    desc: models.TextField(max_length = 250)
-    price: models.IntegerField()
-
-
     def __str__(self):
-       return self.exp
+       return self.type
