@@ -20,11 +20,9 @@ class Grub(models.Model):
         choices = TYPE,
         default= TYPE[0][0]
     )
-
-    exp = models.DateField(
-        'exp date', 
-        default= 2022-11-23
-         #! + timedelta(days=7)  
+    exp: models.DateField(
+        'exp date'
+        # default=
         #* set exp date to 3 days after the created date
         )
     #TODO set default date
@@ -39,9 +37,3 @@ class Grub(models.Model):
 
     def __str__(self):
        return self.item
-    
-    def get_absolute_url(self):
-        return reverse("grubs_detail", kwargs={"grub_id": self.id})
-    
-
-
