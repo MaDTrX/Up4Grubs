@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{%  block content %}
+<div>
+    <p>Item:{{grub.item}} </p>
+    <p>Desc:{{grub.desc}} </p>
+    <p>Price:{{grub.price}} </p>
+    <a href='{% url 'grubs_update' grub.id %}'> UPDATE </a>
+    <a href='{% url 'grubs_delete' grub.id %}'> DELETE </a>
+</div>
+
+{%  endblock %}
