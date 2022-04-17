@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>My Grubs</h1>
+
+
+<h1 class="grubs">my grubs</h1>
+
+{% comment %} add conditional statement for req.user grubs {% endcomment %}
 
 {% for grub in grub_list %}
-{% comment %} add conditional statement for req.user grubs {% endcomment %}
-  <a href="{% url 'grubs_detail' grub.id %}">
-    <div >
-        <div>
-            <span>{{ grub.item }}</span>
-            <p>Desc: {{ grub.desc }}</p>
-        </div>
+<div class="card-content">
+      <a href="{% url 'grubs_detail' grub.id %}">
+        <span class="card-title">{{ grub.item }}</span>
+      </a>
+      <p>type: {{grub.type}}</p>
+      <p>use-by: {{grub.exp}}</p>
+      <p>{{grub.desc}}</p>
+      <p>price: ${{grub.price}}</p>
     </div>
-  </a>
 {% endfor %}
 
 {% endblock %}

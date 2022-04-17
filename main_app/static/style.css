@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    text-align: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url("https://images.squarespace-cdn.com/content/v1/56bab20a3c44d8795bd5ddf5/1561423317231-KN1YPHVS0LTVA4KKED8T/Fruit.jpg?format=2500w");
+  }
+  
+main {
+  flex: 1 0 auto;
+}
+
+.card {
+  background-color: #e1eab9;
+  opacity: .95;
+}
+
+nav {
+  background-color: #b1c560;
+  font-family: 'Londrina Solid', cursive;
+  font-size: 20px;
+}
+
+#nav-text {
+  font-family: 'Londrina Solid', cursive;
+}
+
+#grubs-logo:after {
+  font-family: 'Londrina Shadow', cursive;
+  font-size: 60px;
+  content:'UP4GRUBS';
+} 
+
+#grubs-logo:hover:after{
+  content:'SEE GRUBS';
+  font-size: 40px;
+}
+
+.grubs {
+  font-family: 'Londrina Solid', cursive;
+  font-size: 50px;
+  color: #661686; 
+
+} 
+
+footer.page-footer {
+  padding-top: 0;
+  text-align: right;
+  background-color: #b1c560;
+}

@@ -1,24 +1,24 @@
 
 {% extends 'base.html' %}
-
 {% block content %}
 
-<h1> All Grubs </h1>
+
+<h1 class = "grubs"> all grubs </h1>
 
 {% for grub in grubs %}
-   <div>
-       {% comment %} Vergine: add classes for divs {% endcomment %}
-       <div>
-           <span> {{ grub.item }} </span>
-           <img src=''>
-           <p> Desc: {{grub.desc}} </p>
-           {% comment %} Armando: conditional for fresh produce and pantry exp {% endcomment %}
-           <p> Price: {{grub.price}} </p>
-           <p> Location: {{grub.location}} </p>
-           <p> Type: {{grub.type}} </p>
-           <p> User: {{grub.user}} </p>
-       </div>
+<div class="card">
+    <div class="card-content">
+        <span class="card-title"> {{ grub.item }} </span>
+        <img src=''>
+        <p> User: {{grub.user}} </p>
+        <p> Price: {{grub.price}} </p>
+        <p> Type: {{grub.type}} </p>
+        <p> Desc: {{grub.desc}} </p>
+        {% comment %} Armando: conditional for fresh produce and pantry exp {% endcomment %}
+        <p> Location: {{grub.location}} </p>
+    </div>
     </div>
 {% endfor %}
+
 
 {% endblock %}
