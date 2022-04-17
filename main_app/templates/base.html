@@ -17,12 +17,24 @@
       <div class="nav-wrapper">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Up4Grubs</a></li>
+          
         </ul>
         <ul class="right">
-          <li><a href="{% url 'grubs_create' %}">Add a Grub</a></li>
-          <li><a href="{% url 'index' %}">My grubs</a></li>
-          <li><a href="/about">About</a></li>
+          <!-- changes below -->
+          {% if user.is_authenticated %}
+          <li> Hello {{user.username}}!</li>
+          {% endif %}
+          <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'index' %}">My Grubs</a></li>
+            <li><a href="{% url 'grubs_create' %}">Add Grubs</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
+
       </div>
     </nav>
   </header>
