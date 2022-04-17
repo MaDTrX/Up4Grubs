@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {%  block content %}
-<div>
-    <p>Item:{{grub.item}} </p>
-    <p>Desc:{{grub.desc}} </p>
-    <p>Price:{{grub.price}} </p>
-    <a href='{% url 'grubs_update' grub.id %}'> UPDATE </a>
-    <a href='{% url 'grubs_delete' grub.id %}'> DELETE </a>
+
+
+
+<div class="card-content">
+    <h1 class="grubs">grub details</h1>
+    <span class="card-title">{{ grub.item }}</span>
+    <p>type: {{grub.type}}</p>
+    <p>use-by: {{grub.exp}}</p>
+    <p>{{grub.desc}}</p>
+    <p>price: ${{grub.price}}</p>
 </div>
 <div class="card-action">
     <a href='{% url 'grubs_update' grub.id %}'> edit </a>
@@ -23,6 +27,12 @@
     {% empty %}
         <div class="card-panel center-align">No Photos Uploaded</div>
     {% endfor %}
+</div>
+
+
+<div class="card-action">
+    <a href='{% url 'grubs_update' grub.id %}'> edit </a>
+    <a href='{% url 'grubs_delete' grub.id %}'> delete </a>
 </div>
 
 

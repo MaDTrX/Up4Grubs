@@ -121,5 +121,7 @@ USE_L10N = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/grubs/'
+
+LOGOUT_REDIRECT_URL = '/'
 

@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -10,6 +11,7 @@ from dataclasses import field
 import boto3
 import uuid
 import os
+
 
 # Create your views here.
 from django.http import HttpResponse
@@ -61,26 +63,29 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
 class GrubList(ListView):
     model = Grub
     
-class GrubCreate(CreateView):
+class GrubDetail(LoginRequiredMixin, DetailView):
+    model = Grub
+
+class GrubCreate(LoginRequiredMixin, CreateView):
     model = Grub
     fields = '__all__'
     success_url = '/grubs/'
+    def form_valid(self, form):
+    # Assign the logged in user (self.request.user)
+        form.instance.user = self.request.user  # form.instance is the grub
+    # Let the CreateView do its job as usual
+        return super().form_valid(form)
 
-class GrubDelete(DeleteView):
-    model = Grub
-    success_url = '/grubs/'
-
-class GrubDetail(DetailView):
-    model = Grub
-
-class GrubUpdate(UpdateView):
+class GrubUpdate(LoginRequiredMixin, UpdateView):
     model = Grub 
     fields = '__all__'
     success_url = '/grubs/'
     # find a way to attach the id at the end of success url
 
+class GrubDelete(LoginRequiredMixin, DeleteView):
+    model = Grub
+    success_url = '/grubs/'
 
