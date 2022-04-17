@@ -20,9 +20,9 @@ class Grub(models.Model):
         choices = TYPE,
         default= TYPE[0][0]
     )
-    exp: models.DateField(
-        'exp date'
-        # default=
+    exp = models.IntegerField(
+        'exp date',
+         default= 2022
         #* set exp date to 3 days after the created date
         )
     #TODO set default date
@@ -37,3 +37,14 @@ class Grub(models.Model):
 
     def __str__(self):
        return self.item
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'grub_id': self.id})
+      
+class Photo (models.Model):
+    url = models.CharField(max_length=200)
+    grub = models.ForeignKey(Grub, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Photo for grub_id: {self.grub_id} @{self.url}'
+
