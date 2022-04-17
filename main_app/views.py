@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-from dataclasses import field
-from django.shortcuts import render
-from .models import Grub 
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import UpdateView, CreateView, DeleteView
-=======
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -17,7 +10,6 @@ from dataclasses import field
 import boto3
 import uuid
 import os
->>>>>>> Stashed changes
 
 # Create your views here.
 from django.http import HttpResponse
@@ -35,8 +27,6 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-<<<<<<< Updated upstream
-=======
 def add_photo(request, grub_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -72,7 +62,6 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 
->>>>>>> Stashed changes
 class GrubList(ListView):
     model = Grub
     
