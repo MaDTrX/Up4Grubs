@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>My Grubs</h1>
+
+{% for grub in grub_list %}
+{% comment %} add conditional statement for req.user grubs {% endcomment %}
+  <a href="{% url 'grubs_detail' grub.id %}">
+    <div >
+        <div>
+            <span>{{ grub.item }}</span>
+            <p>Desc: {{ grub.desc }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
