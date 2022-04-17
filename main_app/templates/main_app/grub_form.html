@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
+
+
+
 {% if grub %}
-<h1> Edit </h1>
-{% comment %} add object itme name for edit later {% endcomment %}
+<h1 class="grubs"> edit </h1>
+{% comment %} add object item name for edit later {% endcomment %}
 {% else %}
-<h1> Add a Grub </h1>
+<h1 class="grubs"> add grub </h1>
 {% endif %}
 <form action='' method='POST'>
     {% csrf_token %}
     <table>
         {{ form.as_table}}
     </table>
-    <input type='submit' value='Add a Grub!'>
+    <input type='submit' value='submit'>
 </form>
+
 {% endblock %}
