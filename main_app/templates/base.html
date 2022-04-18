@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script  type='module' src="{% static 'api.js' %}" defer></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Solid&display=swap');
@@ -55,10 +56,12 @@
     <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBS &nbsp;</div>
   </footer>
   <script>
-    const selectEl = document.getElementById('id_type')
-    M.FormSelect.init(selectEl)
-    const select = document.getElementById('id_user')
-    M.FormSelect.init(select)
+    const selectType = document.getElementById('id_type')
+    M.FormSelect.init(selectType)
+    const selectUser = document.getElementById('id_user')
+    M.FormSelect.init(selectUser)
+    const selectOption = document.getElementById('id_option')
+    M.FormSelect.init(selectOption)
   </script>
 </body>
 </html>
