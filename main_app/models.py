@@ -11,6 +11,11 @@ TYPE = (
     ('Pantry', 'Pantry')
 )
 # Create your models here.
+OPTION = (
+    ('P', 'Pick-Up'),
+    ('D', 'Delivery')
+)
+# Create your models here.
 class Grub(models.Model):
     item =  models.CharField(
         max_length=50,
@@ -33,6 +38,15 @@ class Grub(models.Model):
     price = models.IntegerField(
         default=0
     )
+    option = models.CharField(
+        max_length=1,
+        choices=OPTION,
+        default=OPTION[0][0]
+        )
+    location = models.CharField(
+        max_length=200,
+        default='Enter an Address'
+        )
     user = models.ForeignKey(User,  on_delete=models.CASCADE)
 
     def __str__(self):
