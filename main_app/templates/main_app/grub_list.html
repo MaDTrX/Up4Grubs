@@ -3,7 +3,7 @@
 
 
 
-<h1 class="grubs">my grubs</h1>
+<h1 class="grubs">My grubs</h1>
 
 {% comment %} add conditional statement for req.user grubs {% endcomment %}
 
@@ -12,10 +12,11 @@
       <a href="{% url 'grubs_detail' grub.id %}">
         <span class="card-title">{{ grub.item }}</span>
       </a>
-      <p>type: {{grub.type}}</p>
-      <p>use-by: {{grub.exp}}</p>
+      <p>Type: {{grub.type}}</p>
+      <p>Used-by: {{grub.exp}}</p>
       <p>{{grub.desc}}</p>
-      <p>price: ${{grub.price}}</p>
+      <p>Price: ${{grub.price}}</p>
+      <p>Location: {{grub.location}}</p>
     </div>
 {% endfor %}
 

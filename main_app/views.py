@@ -11,7 +11,7 @@ from dataclasses import field
 import boto3
 import uuid
 import os
-
+import requests
 
 # Create your views here.
 from django.http import HttpResponse
@@ -75,6 +75,7 @@ class GrubCreate(LoginRequiredMixin, CreateView):
     success_url = '/grubs/'
     def form_valid(self, form):
     # Assign the logged in user (self.request.user)
+        # location = form.cleaned_data['location']
         form.instance.user = self.request.user  # form.instance is the grub
     # Let the CreateView do its job as usual
         return super().form_valid(form)
