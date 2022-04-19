@@ -10,7 +10,8 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <script  type='module' src="{% static 'api.js' %}" defer></script>  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="{% static 'api.js' %}" defer></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Solid&display=swap');
@@ -20,24 +21,40 @@
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" id="grubs-logo">&nbsp;&nbsp;</a></li>
-          
-        </ul>
-        <ul class="nav-text right">
-          {% if user.is_authenticated %}
-          <li> welcome {{user.username}}!</li>
-          {% endif %}
-          <li><a href="{% url 'about' %}">ABOUT</a></li>
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'index' %}">MY GRUBS</a></li>
-            <li><a href="{% url 'grubs_create' %}">ADD</a></li>
-            <li><a href="{% url 'logout' %}">LOGOUT</a></li>
-          {% else %}
-            <li><a href="{% url 'signup' %}">SIGNUP</a></li>
-            <li><a href="{% url 'login' %}">LOGIN</a></li>
-          {% endif %}
-        </ul>
+      <ul>
+        <li><a href="/" id="grubs-logo" >&nbsp;&nbsp;</a></li>
+      </ul>
+      
+      {% if user.is_authenticated %}
+      <a class="hide-on-med-and-down">welcome {{user.username}}.</a>
+      {% endif %}
+      
+      <ul class="dropdown-content show-on-small" id="dropdown1">
+        <li><a href="{% url 'about' %}">ABOUT</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'index' %}">MY GRUBS</a></li>
+          <li><a href="{% url 'grubs_create' %}">ADD</a></li>
+          <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+        {% else %}
+          <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+          <li><a href="{% url 'login' %}">LOGIN</a></li>
+        {% endif %}
+      </ul>
+
+      <a class='dropdown-trigger right hide-on-med-and-up' href='#' data-target='dropdown1'><i class="material-icons">menu</i></a>
+        <ul class="nav-text right hide-on-small-only">
+            <li><a href="{% url 'about' %}">ABOUT</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'index' %}">MY GRUBS</a></li>
+              <li><a href="{% url 'grubs_create' %}">ADD</a></li>
+              <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+            {% else %}
+              <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+              <li><a href="{% url 'login' %}">LOGIN</a></li>
+            {% endif %}
+          </ul>
+
+
 
       </div>
     </nav>
@@ -53,7 +70,7 @@
     </div>
   </main>
   <footer class="page-footer">
-    <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBS &nbsp;</div>
+    <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBZ &nbsp;</div>
   </footer>
   <script>
     const selectType = document.getElementById('id_type')

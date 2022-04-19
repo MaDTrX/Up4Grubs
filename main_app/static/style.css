@@ -1,50 +1,58 @@
 body {
-    display: flex;
-    text-align: center;
-    min-height: 100vh;
-    flex-direction: column;
-    background-image: url("https://images.squarespace-cdn.com/content/v1/56bab20a3c44d8795bd5ddf5/1561423317231-KN1YPHVS0LTVA4KKED8T/Fruit.jpg?format=2500w");
-  }
-  
+  display: flex;
+  text-align: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("https://media.istockphoto.com/vectors/hand-drawn-bright-neon-color-vegetable-vector-illustrations-made-as-vector-id1175735193?k=20&m=1175735193&s=170667a&w=0&h=Kq-Uqb_kiDg4pBNz23hZ5Z5_LrHkBj4_WxHzxCp5W2k=");
+}
+
 main {
-  flex: 1 0 auto;
+flex: 1 0 auto;
 }
 
 .card {
-  background-color: #e1eab9;
-  opacity: .95;
+background-color: #ffffff;
+opacity: .95;
 }
 
-nav {
-  background-color: #b1c560;
-  font-family: 'Londrina Solid', cursive;
-  font-size: 20px;
+.nav-wrapper {
+background-color: rgb(252, 81, 88) ;
+font-family: 'Londrina Solid', cursive;
+font-size: 20px;
+display: flex;
+justify-content: space-between;
+flex-wrap: nowrap;
 }
 
 #nav-text {
-  font-family: 'Londrina Solid', cursive;
+font-family: 'Londrina Solid', cursive;
 }
 
+
 #grubs-logo:after {
-  font-family: 'Londrina Shadow', cursive;
-  font-size: 60px;
-  content:'UP4GRUBS';
+font-family: 'Londrina Shadow', cursive;
+font-size: 60px;
+content:'UP4GRUBZ';
+color: rgb(18, 50, 125); 
+/* color: rgb(255, 185, 201); */
 } 
 
 #grubs-logo:hover:after{
-  content:'SEE GRUBS';
-  font-size: 40px;
+content:'SEE GRUBS';
+font-size: 50px;
+color: rgb(252, 229, 88);
 }
 
 .grubs {
-  font-family: 'Londrina Solid', cursive;
-  font-size: 50px;
-  color: #661686; 
-
+font-family: 'Londrina Shadow', cursive;
+font-size: 50px;
+color: rgb(49, 85, 166);
+/* color: rgb(4, 153, 172)  */
 } 
 
+
 footer.page-footer {
-  padding-top: 0;
-  text-align: right;
-  background-color: #b1c560;
+padding-top: 0;
+text-align: right;
+background-color: #b1c560;
 }
