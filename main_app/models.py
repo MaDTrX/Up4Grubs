@@ -5,6 +5,7 @@ import datetime
 from django.urls import reverse
 #import timedelta
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 TYPE = (
     ('Fresh Produce', 'Fresh'),
@@ -55,10 +56,13 @@ class Grub(models.Model):
          null = True
         )
     user = models.ForeignKey(User,  on_delete=models.CASCADE)
-    url = models.FileField(
+    url = ArrayField(
+        models.FileField(
         max_length=200, 
         blank = True, 
-        null = True
+        null = True,
+        ),
+        size = 5, 
         )
 
     def __str__(self):
