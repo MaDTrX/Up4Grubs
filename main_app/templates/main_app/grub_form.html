@@ -9,13 +9,14 @@
 {% else %}
 <h1 class="grubs"> Add grub </h1>
 {% endif %}
-<form action='' method='POST'>
+<form action='' enctype='multipart/form-data' method='POST' class='card-panel'>
     {% csrf_token %}
     <table>
         {{ form.as_table}}
     </table>
-    <input type='submit' value='submit'>
+    <input type='submit' class='btn' value='Submit'>
 </form>
+
 <script>
     let autocomplete
     function initAutoComplete() {
@@ -26,10 +27,20 @@
           fields: ['place_id','geometry', 'name']
       })
     }
+    let item= document.getElementById('id_item')
+        item.setAttribute('placeholder', 'Enter an item')
+
+     let desc=document.getElementById('id_desc')
+        desc.setAttribute('placeholder', 'Enter a description')
+
+     let price= document.getElementById('id_price')
+        price.setAttribute('placeholder', 'Enter a price')
+
+
 </script>
 <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiH0QlCu3l2RAkwcOgav_N891BxYmuEf4&libraries=places&callback=initAutoComplete">
-    {% comment %} find a fay to hind our api key {% endcomment %}
+    {% comment %} find a way to hide our api key {% endcomment %}
 </script>
 
 {% endblock %}

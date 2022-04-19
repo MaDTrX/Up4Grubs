@@ -19,25 +19,31 @@ OPTION = (
 class Grub(models.Model):
     item =  models.CharField(
         max_length=50,
-        default='Enter Item')
+        blank = True, 
+        null = True
+       )
     type = models.CharField(
         max_length = 50,
         choices = TYPE,
         default= TYPE[0][0]
-    )
+        )
     exp = models.IntegerField(
         'exp date',
-         default= 2022
+         blank = True, 
+         null = True
         #* set exp date to 3 days after the created date
         )
     #TODO set default date
     # photo: models.BinaryField
     desc =  models.TextField(
         max_length=250,
-        default = 'Enter Description')
+         blank = True, 
+         null = True
+         )
     price = models.IntegerField(
-        default=0
-    )
+         blank = True, 
+         null = True
+        )
     option = models.CharField(
         max_length=1,
         choices=OPTION,
@@ -45,20 +51,22 @@ class Grub(models.Model):
         )
     location = models.CharField(
         max_length=200,
-        default='Enter an Address'
+         blank = True, 
+         null = True
         )
     user = models.ForeignKey(User,  on_delete=models.CASCADE)
+    url = models.FileField(
+        max_length=200, 
+        blank = True, 
+        null = True
+        )
 
     def __str__(self):
        return self.item
+    #    f'Photo for grub_id: {self.user} @{self.url}'
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'grub_id': self.id})
       
-class Photo (models.Model):
-    url = models.CharField(max_length=200)
-    grub = models.ForeignKey(Grub, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f'Photo for grub_id: {self.grub_id} @{self.url}'
 
