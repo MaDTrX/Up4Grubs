@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1 class="grubs">MY GRUBS</h1>
 
-
-<h1 class="grubs">My grubs</h1>
-
-{% comment %} add conditional statement for req.user grubs {% endcomment %}
 
 {% for grub in grub_list %}
-<div class="card-content">
-      <a href="{% url 'grubs_detail' grub.id %}">
-        <span class="card-title">{{ grub.item }}</span>
-      </a>
+{% if request.user == grub.user %}
+<a href="{% url 'grubs_detail' grub.id %}">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ grub.item }}</span>
       <p>Type: {{grub.type}}</p>
       <p>Used-by: {{grub.exp}}</p>
       <p>{{grub.desc}}</p>
       <p>Price: ${{grub.price}}</p>
       <p>Location: {{grub.location}}</p>
     </div>
+  </div>
+</a>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

@@ -6,18 +6,14 @@
 <h1 class = "grubs"> all grubs </h1>
 
 {% for grub in grubs %}
-<div class="card">
-    <div class="card-content">
-        <span class="card-title"> {{ grub.item }} </span>
-        <img src=''>
-        <p> User: {{grub.user}} </p>
-        <p> Price: {{grub.price}} </p>
-        <p> Type: {{grub.type}} </p>
-        <p> Desc: {{grub.desc}} </p>
-        {% comment %} Armando: conditional for fresh produce and pantry exp {% endcomment %}
-        <p> Location: {{grub.location}} </p>
+<a href="{% url 'grubs_detail' grub.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title"> {{ grub.item }} </span>
+            <p> Location: {{grub.location}} </p>
+        </div>
     </div>
-    </div>
+</a>
 {% endfor %}
 
 

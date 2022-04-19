@@ -57,53 +57,64 @@ class GrubCreate(LoginRequiredMixin, CreateView):
     success_url = '/grubs/'
     
     def form_valid(self, form):
-      
         form.instance.user = self.request.user  # form.instance is the grub
-
-
-    # Assign the logged in user (self.request.user)
+        # Assign the logged in user (self.request.user)
         photo_file = self.request.FILES.get('url', None)
-        item = self.request.POST.get('item', None)
-        grub_type = self.request.POST.get('type', None)
-        exp = self.request.POST.get('exp', None)
-        desc = self.request.POST.get('desc', None)
-        price = self.request.POST.get('price', None)
-        option = self.request.POST.get('option', None)
-        location = self.request.POST.get('location', None)
-    
-
-        #CLEAN UP CODE!
-
-    # photo-file will be the "name" attribute on the <input type="file">
+        # photo-file will be the "name" attribute on the <input type="file">
         if photo_file:
             s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
+            # need a unique "key" for S3 / needs image file extension too
             key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        
-        # just in case something goes wrong
+            # just in case something goes wrong
             try:
                 bucket = os.environ['S3_BUCKET']
                 s3.upload_fileobj(photo_file, bucket, key)
                 # build the full url string
-                url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+                form.instance.url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
                 # we can assign to grub_id or cat (if you have a cat object)
-                Grub.objects.create(url=url, item=item, type=grub_type,location=location, exp=exp, desc=desc, price=price, option=option, user=self.request.user)
             except Exception as e:
-                print('false')
                 print('An error occurred uploading file to S3')
                 print(e)
-            return redirect('home')
+                return redirect('home')
         else: 
             print('Need to upload file')
-
-    # Let the CreateView do its job as usual
+            # Let the CreateView do its job as usual
         return super().form_valid(form)
     
 class GrubUpdate(LoginRequiredMixin, UpdateView):
+    def id(self):
+        print(self.request.POST.get('url', None))
     model = Grub 
-    fields = '__all__'
-    success_url = '/grubs/'
-    # find a way to attach the id at the end of success url
+    fields = ['item','type','exp','desc', 'price', 'option', 'location', 'url']
+    success_url = '/grubs/detail/5'
+    def form_valid(self, form):
+        print(self.request.FILES)
+    # form.instance.user = self.request.user  # form.instance is the grub
+    # Assign the logged in user (self.request.user)
+        photo_file = self.request.FILES.get('url', None)
+        for img in photo_file:
+            print(img.name)
+        # photo-file will be the "name" attribute on the <input type="file">
+            if img:
+                s3 = boto3.client('s3')
+                # need a unique "key" for S3 / needs image file extension too
+                key = uuid.uuid4().hex[:6] + img.name[img.name.rfind('.'):]
+                # just in case something goes wrong
+                try:
+                    bucket = os.environ['S3_BUCKET']
+                    s3.upload_fileobj(img, bucket, key)
+                    # build the full url string
+                    form.instance.url.append(f"{os.environ['S3_BASE_URL']}{bucket}/{key}")
+                    # we can assign to grub_id or cat (if you have a cat object)
+                except Exception as e:
+                    print('An error occurred uploading file to S3')
+                    print(e)
+                    return redirect('home')
+            else: 
+                print('Need to upload file')
+                # Let the CreateView do its job as usual
+        return super().form_valid(form)
+        # find a way to attach the id at the end of success url
 
 class GrubDelete(LoginRequiredMixin, DeleteView):
     model = Grub

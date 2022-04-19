@@ -1,27 +1,80 @@
 {% extends 'base.html' %}
 {%  block content %}
 
+<h1 class="grubs">{{ grub.item }}</h1>
+
+<div class="card">
+    <div class="row">
+        <div class="col s6"> 
+            <div class="card medium">
+                <div class="card-content left-content">
+                    <br>
+                    <p><strong>POSTED BY:</strong> {{grub.user}}</p>
+                    <br>
+                    <p><strong>TYPE:</strong> {{grub.type}}</p>
+                    <br>
+                    <p><strong>USE-BY:</strong> {{grub.exp}}</p>
+                    <br>
+                    <p><strong>DETAILS:</strong> {{grub.desc}}</p>
+                    <br>
+                    <p><strong>OPTIONS:</strong> {{grub.option}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s6"> 
+            <div class="card medium">
+            {% for img in grub.url %}
+                {% if img %}
+                <img class='responsive-img card medium no-margin' src="{{ img }}">
+                {% else %}
+                <img class='responsive-img card medium no-margin' src="https://xn--80aadc3bb0afph5eue.xn--p1ai/images/no_photo.png">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="row">
+        <div class="col s6"> 
+            <div class="card-action">
+                <a href='{% url 'grubs_update' grub.id %}'> EDIT </a>
+                <a href='{% url 'grubs_delete' grub.id %}'> DELETE </a>
+            </div>
+        </div>
+        <div class="col s3 no-padding"> 
+            <div class="no-padding">
+                <label for="file-input"><i class="material-icons medium">add_a_photo</i></label>
+            </div>
+            <div>
+                <form action="{% url 'grubs_update' grub.id %}" enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="{{grub.id}}"hidden>
+                    <input type="text" name="item" value="{{grub.item}}"hidden>
+                    <input type="text" name="type" value="{{grub.type}}"hidden>
+                    <input type="text" name="exp" value="{{grub.exp}}"hidden>
+                    <input type="text" name="desc" value="{{grub.desc}}"hidden>
+                    <input type="text" name="price" value="{{grub.price}}"hidden>
+                    <input type="text" name="option" value="{{grub.option}}"hidden>
+                    <input type="text" name="location" value="{{grub.location}}"hidden>
+                    <input type="text" name="user" value="{{grub.user}}"hidden>
+                    <input type="file" multiple="multiple" name="url" id="file-input">
+            </div>  
+        </div>
+        <div class="col s3 no-padding"> 
+            <div class="card-action">
+            <input type="submit" class="btn" value="Upload Photo">
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<div class="card-content">
-    <h1 class="grubs">grub details</h1>
-    <span class="card-title">{{ grub.item }}</span>
-    <p>type: {{grub.type}}</p>
-    <p>use-by: {{grub.exp}}</p>
-    <p>{{grub.desc}}</p>
-    <p>price: ${{grub.price}}</p>
-</div>
-<div class="card-action">
-    <a href='{% url 'grubs_update' grub.id %}'> EDIT </a>
-    <a href='{% url 'grubs_delete' grub.id %}'> DELETE </a>
-</div>
-<div>
-    {% if grub.url %}
-    <img class='responsive-img card-panel' src="{{ grub.url}}">
-    {% else %}
-    <div class="card-panel center-align">No Photos Uploaded</div>
-    {% endif %}
-</div>
+
+
+
+
 <label>Location:</label><p id='location'>{{grub.location}}</p>
 <div id="map" style="width:100%;height:400px;"></div>
  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
