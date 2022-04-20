@@ -2,8 +2,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-<h1 class = "grubs"> all grubs </h1>
+<a href='#'><h1 class = "grubs"> all grubs </h1></a>
 
 {% for grub in grubs %}
 <a href="{% url 'grubs_detail' grub.id %}">
@@ -15,6 +14,18 @@
     </div>
 </a>
 {% endfor %}
+<script>
+    const findUserLocation =  () => {
+        let approved = (position) => {
+            let Userlatitude = position.coords.latitude
+            let Userlongitude = position.coords.longitude
 
+        }
+        const denied = () => {
+            console.log('location access deinied')
+        }
+        navigator.geolocation.getCurrentPosition(approved, denied)
+    }
+    document.addEventListener('DOMContentLoaded', findUserLocation)
 
 {% endblock %}

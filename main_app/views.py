@@ -1,5 +1,4 @@
 
-from operator import itemgetter
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -7,12 +6,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Grub
+from .models import Grub, Photo
 from dataclasses import field
 import boto3
 import uuid
 import os
 import requests
+
 
 # Create your views here.
 from django.http import HttpResponse
@@ -51,51 +51,64 @@ class GrubList(ListView):
 class GrubDetail(LoginRequiredMixin, DetailView):
     model = Grub
 
+    def get_context_data(self, **kwargs):
+        et = super(GrubDetail, self).get_context_data(**kwargs)
+        et['photo'] = Photo.objects.all()
+        et['places'] = os.environ.get('PLACES_API')
+        return et
+
 class GrubCreate(LoginRequiredMixin, CreateView):
     model = Grub
-    fields = ['item','type','exp','desc', 'price', 'option', 'location', 'url'] 
+    fields = ['item','type','exp','desc', 'price', 'option', 'location'] 
     success_url = '/grubs/'
+    #! redirect to created grub
+    def get_context_data(self, **kwargs):
+        et = super(GrubCreate, self).get_context_data(**kwargs)
+        et['places'] = os.environ.get('PLACES_API')
+        return et
     
     def form_valid(self, form):
-        form.instance.user = self.request.user  # form.instance is the grub
-        # Assign the logged in user (self.request.user)
-        photo_file = self.request.FILES.get('url', None)
-        # photo-file will be the "name" attribute on the <input type="file">
-        if photo_file:
-            s3 = boto3.client('s3')
-            # need a unique "key" for S3 / needs image file extension too
-            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-            # just in case something goes wrong
-            try:
-                bucket = os.environ['S3_BUCKET']
-                s3.upload_fileobj(photo_file, bucket, key)
-                # build the full url string
-                form.instance.url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-                # we can assign to grub_id or cat (if you have a cat object)
-            except Exception as e:
-                print('An error occurred uploading file to S3')
-                print(e)
-                return redirect('home')
-        else: 
-            print('Need to upload file')
-            # Let the CreateView do its job as usual
-        return super().form_valid(form)
+        form.instance.user = self.request.user
+        super().form_valid(form) 
+        photo_file = self.request.FILES.getlist('url', None)
+        for img in photo_file:
+            if img:
+                print(img)
+                s3 = boto3.client('s3')
+                key = uuid.uuid4().hex[:6] + img.name[img.name.rfind('.'):]
+
+                try:
+                    bucket = os.environ['S3_BUCKET']
+                    s3.upload_fileobj(img, bucket, key)
+                    # build the full url string
+                    url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+                    Photo.objects.create(url=url, grub=form.instance)
+
+                except Exception as e:
+                    print('An error occurred uploading file to S3')
+                    print(e)
+                    return redirect('home')
+            else: 
+                print('Need to upload file')
+        
+        return redirect('/grubs/')# Let the CreateView do its job as usual
+        
     
 class GrubUpdate(LoginRequiredMixin, UpdateView):
-    def id(self):
-        print(self.request.POST.get('url', None))
     model = Grub 
-    fields = ['item','type','exp','desc', 'price', 'option', 'location', 'url']
+    fields = ['item','type','exp','desc', 'price', 'option', 'location']
     success_url = '/grubs/detail/5'
+    #! redirect to update grub
     def form_valid(self, form):
-        print(self.request.FILES)
-    # form.instance.user = self.request.user  # form.instance is the grub
-    # Assign the logged in user (self.request.user)
-        photo_file = self.request.FILES.get('url', None)
+        # form.instance.user = self.request.user 
+        super().form_valid(form) # form.instance is the grub
+  
+        photo_file = self.request.FILES.getlist('url', None)
+        print(form.instance.id)
         for img in photo_file:
-            print(img.name)
         # photo-file will be the "name" attribute on the <input type="file">
             if img:
+                print(img)
                 s3 = boto3.client('s3')
                 # need a unique "key" for S3 / needs image file extension too
                 key = uuid.uuid4().hex[:6] + img.name[img.name.rfind('.'):]
@@ -103,8 +116,11 @@ class GrubUpdate(LoginRequiredMixin, UpdateView):
                 try:
                     bucket = os.environ['S3_BUCKET']
                     s3.upload_fileobj(img, bucket, key)
+                    #! replicate for photo delete
                     # build the full url string
-                    form.instance.url.append(f"{os.environ['S3_BASE_URL']}{bucket}/{key}")
+                    url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}" 
+
+                    Photo.objects.create(url=url, grub=form.instance)
                     # we can assign to grub_id or cat (if you have a cat object)
                 except Exception as e:
                     print('An error occurred uploading file to S3')
@@ -113,7 +129,7 @@ class GrubUpdate(LoginRequiredMixin, UpdateView):
             else: 
                 print('Need to upload file')
                 # Let the CreateView do its job as usual
-        return super().form_valid(form)
+        return redirect('/grubs/')
         # find a way to attach the id at the end of success url
 
 class GrubDelete(LoginRequiredMixin, DeleteView):

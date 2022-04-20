@@ -5,9 +5,8 @@
 
 {% if grub %}
 <h1 class="grubs"> Edit </h1>
-{% comment %} add object item name for edit later {% endcomment %}
 {% else %}
-<h1 class="grubs"> Add grub </h1>
+<h1 class="grubs"> Add </h1>
 {% endif %}
 <form action='' enctype='multipart/form-data' method='POST' class='card-panel'>
     {% csrf_token %}
@@ -20,25 +19,31 @@
 <script>
     let autocomplete
     function initAutoComplete() {
-      autocomplete = new google.maps.places.Autocomplete(document.getElementById('id_location'),
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('id_location'),
       {
           types:[], 
           componentRestriction: {'country': ['US']}, 
           fields: ['place_id','geometry', 'name']
       })
     }
+    document.addEventListener('DOMContentLoaded', function() {
+    let tr = document.createElement('tr')
+    let tbody= document.querySelector('tbody')
+    let lastTr= tbody.lastElementChild
+    tbody.appendChild(tr).innerHTML = '<th><label>Photos:</label></th><td><input type="file" name="url" id="id_url" multiple></td>'
+
     let item= document.getElementById('id_item')
-        item.setAttribute('placeholder', 'Enter an item')
+    item.setAttribute('placeholder', 'Enter an item')
 
-     let desc=document.getElementById('id_desc')
-        desc.setAttribute('placeholder', 'Enter a description')
+    let desc=document.getElementById('id_desc')
+     desc.setAttribute('placeholder', 'Enter a description')
 
-     let price= document.getElementById('id_price')
-        price.setAttribute('placeholder', 'Enter a price')
+    let price= document.getElementById('id_price')
+    price.setAttribute('placeholder', 'Enter a price')
+    })
 </script>
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiH0QlCu3l2RAkwcOgav_N891BxYmuEf4&libraries=places&callback=initAutoComplete">
-    {% comment %} find a way to hide our api key {% endcomment %}
+    src="https://maps.googleapis.com/maps/api/js?key={{places}}&libraries=places&callback=initAutoComplete">
 </script>
 
 {% endblock %}

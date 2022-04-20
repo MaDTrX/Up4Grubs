@@ -3,7 +3,6 @@
 
 <h1 class="grubs">MY GRUBS</h1>
 
-
 {% for grub in grub_list %}
 {% if request.user == grub.user %}
 <a href="{% url 'grubs_detail' grub.id %}">
