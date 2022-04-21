@@ -39,12 +39,12 @@
         <div class="col s6"> 
             <div class="card medium">
                 <div class="slider">
-                    <ul class='slides'>
+                    <ul class='slides bg'>
                         {% for img in photo %}
                         {% if not img.url  %}
                         <img class='responsive-img card medium no-margin' src="https://xn--80aadc3bb0afph5eue.xn--p1ai/images/no_photo.png">
                         {% elif img.grub.id == grub.id %}
-                        <li class =''>
+                        <li>
                             <form action="{% url 'photos_delete' img.id %} " method="GET">
                                 <input type='text' name="id" value='{{ img.grub.id }}' hidden>
                                 <input type='text' name="img" value='{{ img.id }}' hidden>
@@ -86,10 +86,12 @@
                         <input type="text" name="option" value="{{grub.option}}"hidden>
                         <input type="text" name="location" value="{{grub.location}}"hidden>
                         <input type="text" name="user" value="{{grub.user}}"hidden>
-                        <input type="file" multiple="multiple" name="url" id="file-input">
+                        <input type="file" multiple="multiple" name="url" id="file-input" hidden>
                     </div>  
                         <div id="inline-block">
-
+                            <div class="no-padding">
+                                <label><i class="material-icons medium">add_a_photo</i></label>
+                            </div>
                             <input type="submit" class="btn-large" value="Upload Photo">
                         </div>
                     </form>
