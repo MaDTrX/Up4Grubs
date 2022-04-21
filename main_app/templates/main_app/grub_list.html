@@ -3,14 +3,6 @@
 
 <h1 class="grubs">MY GRUBS</h1>
 
-{% if claims %}
-{% for claim in claims %}
-  <a href='{url 'grubs_detail' claim.grub.id }'>{{claim.grub}}</a>
-{% empty%}
-  <p>No Claims</p>
-  {% endfor %}
-  {% endif %}
-
 {% for grub in grub_list %}
 {% if request.user == grub.user %}
 <a href="{% url 'grubs_detail' grub.id %}">
@@ -24,5 +16,24 @@
 </a>
 {% endif %}
 {% endfor %}
+
+<h1 class="grubs">CLAIMED GRUBS</h1>
+
+{% if claims %}
+{% for claim in claims %}
+<a href='{url 'grubs_detail' claim.grub.id }'>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ claim.grub }}</span>
+      <p>claim.grub.type</p>
+      <p>claim.grub.exp</p>
+    </div>
+  </a>
+  {% empty%}
+  <p>No Claims</p>
+  {% endfor %}
+  {% endif %}
+
+
 
 {% endblock %}

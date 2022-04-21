@@ -82,3 +82,6 @@ background-color: rgb(4, 153, 172)
   align-items: center;
 }
 
+.slides.bg {
+  background-color: white !important;
+}
