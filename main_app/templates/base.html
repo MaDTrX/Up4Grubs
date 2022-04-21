@@ -6,28 +6,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>UP4GRUBS</title>
+    <title>UP4GRUBZ</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <script src="{% static 'api.js' %}" defer></script>  
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Solid&display=swap');</style>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Solid&family=Roboto&display=swap');
+      </style>
   </head>
 <body>
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
       <ul>
-        <li><a href="/" id="grubs-logo" >&nbsp;&nbsp;</a></li>
+        <li><a href="/" id="grubs-logo">&nbsp;&nbsp;</a></li>
       </ul>
       
       {% if user.is_authenticated %}
-      <a class="hide-on-med-and-down">Welcome {{user.username}}.</a>
+      <a class="hide-on-med-and-down">welcome, {{user.username}}</a>
       {% endif %}
       
+
       <ul class="dropdown-content show-on-small" id="dropdown1">
         <li><a href="{% url 'about' %}">ABOUT</a></li>
         {% if user.is_authenticated %}
@@ -39,6 +41,7 @@
           <li><a href="{% url 'login' %}">LOGIN</a></li>
         {% endif %}
       </ul>
+ 
 
       <a class='dropdown-trigger right hide-on-med-and-up' href='#' data-target='dropdown1'><i class="material-icons">menu</i></a>
         <ul class="nav-text right hide-on-small-only">
@@ -69,7 +72,10 @@
     <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBZ &nbsp;</div>
   </footer>
   <script>
+
     document.addEventListener('DOMContentLoaded', function() {
+      const elems = document.querySelectorAll('.dropdown-trigger');
+      const instances = M.Dropdown.init(elems);
       
       const selectType = document.getElementById('id_type')
       M.FormSelect.init(selectType)

@@ -6,7 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Grub, Photo
+from django.db.models import Q
+from .models import Grub, Photo, Claim
 from dataclasses import field
 import boto3
 import uuid
@@ -14,18 +15,21 @@ import os
 import requests
 
 
-# Create your views here.
-from django.http import HttpResponse
-#* Used as a retrun object from a django view
-
-
 # Define the home view
 def home(request):
+    claims = Claim.objects.all()
     grubs = Grub.objects.all()
-    # console.log(grubs)
-#     #* gets all grubs| class Grub is imported from models
-    return render(request, 'home.html',{'grubs': grubs} )
-#     #! define  a function called grubs
+    print(grubs)
+    matches = []
+    for claim in claims:
+       matches.extend(grubs.exclude(~Q(id=claim.grub.id)))
+    filter = []
+    for el in grubs:
+        if el not in matches:
+            filter.append(el)
+    print(filter, "test")
+    #* gets all grubs| class Grub is imported from models
+    return render(request, 'home.html', {'grubs': filter})
 
 def about(request):
     return render(request, 'about.html')
@@ -45,27 +49,34 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+    
 class GrubList(ListView):
     model = Grub
+
+    def get_context_data(self, **kwargs):
+        claim = super(GrubList, self).get_context_data(**kwargs)
+        claim['claims'] = Claim.objects.filter(user=self.request.user)
+        return claim    
+
     
 class GrubDetail(LoginRequiredMixin, DetailView):
     model = Grub
 
     def get_context_data(self, **kwargs):
-        et = super(GrubDetail, self).get_context_data(**kwargs)
-        et['photo'] = Photo.objects.all()
-        et['places'] = os.environ.get('PLACES_API')
-        return et
+        photo = super(GrubDetail, self).get_context_data(**kwargs)
+        photo['photo'] = Photo.objects.all()
+        photo['places'] = os.environ.get('PLACES_API')
+        return photo
 
 class GrubCreate(LoginRequiredMixin, CreateView):
     model = Grub
-    fields = ['item','type','exp','desc', 'price', 'option', 'location'] 
+    fields = ['item','type','exp','desc', 'option', 'location'] 
     success_url = '/grubs/'
     #! redirect to created grub
     def get_context_data(self, **kwargs):
-        et = super(GrubCreate, self).get_context_data(**kwargs)
-        et['places'] = os.environ.get('PLACES_API')
-        return et
+        places = super(GrubCreate, self).get_context_data(**kwargs)
+        places['places'] = os.environ.get('PLACES_API')
+        return places
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -96,7 +107,7 @@ class GrubCreate(LoginRequiredMixin, CreateView):
     
 class GrubUpdate(LoginRequiredMixin, UpdateView):
     model = Grub 
-    fields = ['item','type','exp','desc', 'price', 'option', 'location']
+    fields = ['item','type','exp','desc', 'option', 'location']
     success_url = '/grubs/detail/5'
     #! redirect to update grub
     def form_valid(self, form):
@@ -136,3 +147,18 @@ class GrubDelete(LoginRequiredMixin, DeleteView):
     model = Grub
     success_url = '/grubs/'
 
+
+class ClaimCreate(LoginRequiredMixin, CreateView):
+    model = Claim
+    success_url = '/grubs/'
+    fields = '__all__'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        
+        grub = Grub.objects.filter(id=self.request.GET.get('id', None))
+        claim = Claim.objects.filter(grub=None, user=self.request.user)
+        claim.update(grub=grub[0])
+        return redirect('/grubs/')
+      

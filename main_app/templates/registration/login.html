@@ -2,12 +2,12 @@
 {% block content %}
 
 
-<h1 class="grubs">log in</h1>
+<h1 class="grubs">LOGIN</h1>
 
 <form method='POST' action ='{% url 'login' %}'>
     {% csrf_token %}
     {{ form.as_p }}
-    <input type='submit' class='btn' value='login'>
+    <input type='submit' class='btn-large' value='login'>
     <input type='hidden' name='next' value='{{ next }}'>
 </form>
 
