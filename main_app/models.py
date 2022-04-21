@@ -58,7 +58,7 @@ class Grub(models.Model):
     #    f'Photo for grub_id: {self.user} @{self.url}'
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'grub_id': self.id})
+        return reverse('grubs_detail', kwargs={'pk': self.id})
       
 class Photo(models.Model):
     grub = models.ForeignKey(Grub,  on_delete=models.CASCADE, blank = True, 
@@ -71,3 +71,4 @@ class Photo(models.Model):
 class Claim(models.Model):
     grub = models.ForeignKey(Grub, on_delete=models.CASCADE, blank = True, null = True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank = True, null = True)
+   
