@@ -4,17 +4,20 @@
 
 
 {% if grub %}
-<h1 class="grubs"> Edit </h1>
+<h1 class="grubs"> EDIT </h1>
 {% else %}
-<h1 class="grubs"> Add </h1>
+<h1 class="grubs"> ADD </h1>
 {% endif %}
 <form action='' enctype='multipart/form-data' method='POST' class='card-panel'>
     {% csrf_token %}
     <table>
         {{ form.as_table}}
     </table>
-    <input type='submit' class='btn' value='Submit'>
+    <br>
+    <input type='submit' class='btn-large' value='Submit'>
+
 </form>
+
 
 <script>
     let autocomplete
@@ -37,9 +40,7 @@
 
     let desc=document.getElementById('id_desc')
      desc.setAttribute('placeholder', 'Enter a description')
-
-    let price= document.getElementById('id_price')
-    price.setAttribute('placeholder', 'Enter a price')
+     
     })
 </script>
 <script async

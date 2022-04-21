@@ -3,6 +3,7 @@ body {
   text-align: center;
   min-height: 100vh;
   flex-direction: column;
+  font-family: 'Baloo Paaji 2', cursive;
   background-image: url("https://media.istockphoto.com/vectors/hand-drawn-bright-neon-color-vegetable-vector-illustrations-made-as-vector-id1175735193?k=20&m=1175735193&s=170667a&w=0&h=Kq-Uqb_kiDg4pBNz23hZ5Z5_LrHkBj4_WxHzxCp5W2k=");
 }
 
@@ -33,7 +34,8 @@ font-family: 'Londrina Solid', cursive;
 font-family: 'Londrina Shadow', cursive;
 font-size: 60px;
 content:'UP4GRUBZ';
-color: rgb(18, 50, 125); 
+color: white;
+/* color: rgb(18, 50, 125);  */
 /* color: rgb(255, 185, 201); */
 } 
 
@@ -46,7 +48,7 @@ color: rgb(252, 229, 88);
 .grubs {
 font-family: 'Londrina Shadow', cursive;
 font-size: 50px;
-color: rgb(49, 85, 166);
+color: rgb(252, 81, 88) ;
 /* color: rgb(4, 153, 172)  */
 } 
 
@@ -61,10 +63,22 @@ color: rgb(49, 85, 166);
 footer.page-footer {
 padding-top: 0;
 text-align: right;
-background-color: #b1c560;
+background-color: rgb(4, 153, 172) 
+
 }
 
 .left-content{
   text-align: left;
+}
+
+
+#inline-block {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
 }
 

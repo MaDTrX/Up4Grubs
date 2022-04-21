@@ -11,8 +11,8 @@ TYPE = (
 )
 # Create your models here.
 OPTION = (
-    ('P', 'Pick-Up'),
-    ('D', 'Delivery')
+    ('Pick-up', 'Pick-Up'),
+    ('Delivery', 'Delivery')
 )
 #! fix options
 # Create your models here.
@@ -41,12 +41,8 @@ class Grub(models.Model):
         blank = True, 
         null = True
     )
-    price = models.IntegerField(
-        blank = True, 
-        null = True
-    )
     option = models.CharField(
-        max_length=1,
+        max_length=10,
         choices=OPTION,
         default=OPTION[0][0]
     )
@@ -72,4 +68,6 @@ class Photo(models.Model):
         null = True,
     )
 
-
+class Claim(models.Model):
+    grub = models.ForeignKey(Grub, on_delete=models.CASCADE, blank = True, null = True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank = True, null = True)

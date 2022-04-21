@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action='' enctype='multipart/form-data' method='POST' class='card-panel'>
+    {% csrf_token %}
+    <table hidden>
+        {{ form.as_table}}
+    </table>
+    <input type='submit' class='btn' value='Submit'>
+</form>
+
+{% endblock %}

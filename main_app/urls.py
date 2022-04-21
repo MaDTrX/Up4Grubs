@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import GrubList, GrubCreate, GrubDetail, GrubDelete, GrubUpdate
+from .views import GrubList, GrubCreate, GrubDetail, GrubDelete, GrubUpdate, ClaimCreate
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('grubs/delete/<int:pk>/',GrubDelete.as_view(), name='grubs_delete'),
    # path('grubs/<int:grub_id>/add_photo/', views.add_photo, name='add_photo' ),
     path('accounts/signup/', views.signup, name='signup'),
+    path('claims/create/',ClaimCreate.as_view(), name='claims_create'),
     #checkout path
 ]

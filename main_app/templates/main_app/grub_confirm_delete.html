@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% block content%}
 
-<h1 class="grubs">Delete</h1>
+<h1 class="grubs">DELETE</h1>
 
-<p>Are you sure you want to delete?</p>
+<p>ARE YOU SURE YOU WANT TO DELETE?</p>
 <br>
 <form action='' method='POST'>
     {% csrf_token %}
-    <input type='submit' class="btn" value='DELETE'>
-    <br>
-    <a href="{% url 'grubs_detail' grub.id %}">Cancel</a>
+    <input type='submit' class="btn-large" value='DELETE'>
+    <a href="{% url 'grubs_detail' grub.id %}" class="btn-large button">Cancel</a>
 </form>
 
 {% endblock %}
