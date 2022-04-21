@@ -84,7 +84,6 @@ class GrubCreate(LoginRequiredMixin, CreateView):
                     s3.upload_fileobj(img, bucket, key)
                     url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
                     Photo.objects.create(url=url, grub=form.instance)
-                    return HttpResponseRedirect(self.get_success_url())
                 except Exception as e:
                     print('An error occurred uploading file to S3')
                     print(e)
@@ -115,7 +114,6 @@ class GrubUpdate(LoginRequiredMixin, UpdateView):
                     s3.upload_fileobj(img, bucket, key)
                     url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}" 
                     Photo.objects.create(url=url, grub=form.instance)
-                    return HttpResponseRedirect(self.get_success_url())
                 except Exception as e:
                     print('An error occurred uploading file to S3')
                     print(e)
@@ -127,7 +125,7 @@ class GrubUpdate(LoginRequiredMixin, UpdateView):
 
 class GrubDelete(LoginRequiredMixin, DeleteView):
     model = Grub
-    success_url = '/index/'
+    success_url = '/grubs/'
 
 class ClaimCreate(LoginRequiredMixin, CreateView):
     model = Claim

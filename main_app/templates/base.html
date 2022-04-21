@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +28,6 @@
       <a class="hide-on-med-and-down">welcome, {{user.username}}</a>
       {% endif %}
       
-
       <ul class="dropdown-content show-on-small" id="dropdown1">
         <li><a href="{% url 'about' %}">ABOUT</a></li>
         {% if user.is_authenticated %}
@@ -42,7 +40,6 @@
         {% endif %}
       </ul>
  
-
       <a class='dropdown-trigger right hide-on-med-and-up' href='#' data-target='dropdown1'><i class="material-icons">menu</i></a>
         <ul class="nav-text right hide-on-small-only">
             <li><a href="{% url 'about' %}">ABOUT</a></li>
@@ -72,6 +69,7 @@
     <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBZ &nbsp;</div>
   </footer>
   <script>
+
     document.addEventListener('DOMContentLoaded', function() {
       const elems = document.querySelectorAll('.dropdown-trigger');
       const instances = M.Dropdown.init(elems);
@@ -83,6 +81,7 @@
       const selectOption = document.getElementById('id_option')
       M.FormSelect.init(selectOption)
     })
+
   </script>
   <script>
     let autocomplete
@@ -105,11 +104,11 @@
 
     let desc=document.getElementById('id_desc')
      desc.setAttribute('placeholder', 'Enter a description')
-     
+
     })
 </script>
 <script async
     src="https://maps.googleapis.com/maps/api/js?key={{places}}&libraries=places&callback=initAutoComplete">
 </script>
 </body>
-</html>
+</html> 
