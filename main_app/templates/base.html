@@ -72,7 +72,6 @@
     <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBZ &nbsp;</div>
   </footer>
   <script>
-
     document.addEventListener('DOMContentLoaded', function() {
       const elems = document.querySelectorAll('.dropdown-trigger');
       const instances = M.Dropdown.init(elems);
@@ -84,7 +83,33 @@
       const selectOption = document.getElementById('id_option')
       M.FormSelect.init(selectOption)
     })
-    
   </script>
+  <script>
+    let autocomplete
+    function initAutoComplete() {
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('id_location'),
+      {
+          types:[], 
+          componentRestriction: {'country': ['US']}, 
+          fields: ['place_id','geometry', 'name']
+      })
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    let tr = document.createElement('tr')
+    let tbody= document.querySelector('tbody')
+    let lastTr= tbody.lastElementChild
+    tbody.appendChild(tr).innerHTML = '<th><label>Photos:</label></th><td><input type="file" name="url" id="id_url" multiple></td>'
+
+    let item= document.getElementById('id_item')
+    item.setAttribute('placeholder', 'Enter an item')
+
+    let desc=document.getElementById('id_desc')
+     desc.setAttribute('placeholder', 'Enter a description')
+     
+    })
+</script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key={{places}}&libraries=places&callback=initAutoComplete">
+</script>
 </body>
 </html>
