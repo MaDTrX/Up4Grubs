@@ -1,28 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+  <div class="col s6"> 
+<div class="card medium">
 <h1 class="grubs">MY GRUBS</h1>
 
-{% if claims %}
-{% for claim in claims %}
-  <a href='{url 'grubs_detail' claim.grub.id }'>{{claim.grub}}</a>
-{% empty%}
-  <p>No Claims</p>
+{% if grub_list %}
+  {% for grub in grub_list %}
+    {% if request.user == grub.user %}
+      <a href="{% url 'grubs_detail' grub.id %}">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{ grub.item }}</span>
+            <p>Type: {{grub.type}}</p>
+            <p>Used-by: {{grub.exp}}</p>
+          </div>
+        </div>
+      </a>
+    {% endif %}
   {% endfor %}
-  {% endif %}
-
-{% for grub in grub_list %}
-{% if request.user == grub.user %}
-<a href="{% url 'grubs_detail' grub.id %}">
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ grub.item }}</span>
-      <p>Type: {{grub.type}}</p>
-      <p>Used-by: {{grub.exp}}</p>
-    </div>
-  </div>
-</a>
+{% else %}
+  <h6>YOU DON'T HAVE POSTED GRUBS YET, POST SOME GRUBS!</h6>
 {% endif %}
-{% endfor %}
+</div>
+</div>
+
+
+<div class="col s6"> 
+<div class="card medium">
+<h1 class="grubs">CLAIMED GRUBS</h1>
+{% if claims %}
+  {% for claim in claims %}
+      <a href="{% url 'grubs_detail' claim.grub.id %}">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{ claim.grub }}</span>
+            <p>From: {{claim.user}}</p>
+            <p>{{claim.grub.location}}</p>
+          </div>
+        </div>
+      </a>
+  {% endfor %}
+{% else %}
+  <p>NO GRUBS YET, CLAIM SOME GRUBS!</p>
+{% endif %}
+</div>
+</div>
+</div>
+
 
 {% endblock %}

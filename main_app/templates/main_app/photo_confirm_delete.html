@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<h1 class="grubs">PHOTO DELETE</h1>
+
+<p>ARE YOU SURE YOU WANT TO DELETE THE PHOTO?</p>
+<br>
+<form action='' method='POST'>
+    {% csrf_token %}
+    <input type='submit' class="btn-large" value='DELETE'>
+</form>
+
+{% endblock %}

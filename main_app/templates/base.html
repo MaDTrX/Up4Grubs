@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,38 +20,38 @@
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-      <ul>
-        <li><a href="/" id="grubs-logo">&nbsp;&nbsp;</a></li>
-      </ul>
-      
-      {% if user.is_authenticated %}
-      <a class="hide-on-med-and-down">welcome, {{user.username}}</a>
-      {% endif %}
-      
-
-      <ul class="dropdown-content show-on-small" id="dropdown1">
-        <li><a href="{% url 'about' %}">ABOUT</a></li>
+        <ul>
+          <li><a href="/" class="responsive-img" id="grubs-logo">&nbsp;&nbsp;</a></li>
+        </ul>
+        
         {% if user.is_authenticated %}
-          <li><a href="{% url 'index' %}">MY GRUBS</a></li>
-          <li><a href="{% url 'grubs_create' %}">ADD</a></li>
-          <li><a href="{% url 'logout' %}">LOGOUT</a></li>
-        {% else %}
-          <li><a href="{% url 'signup' %}">SIGNUP</a></li>
-          <li><a href="{% url 'login' %}">LOGIN</a></li>
+        
         {% endif %}
-      </ul>
+        
+
+        <ul class="dropdown-content show-on-small" id="dropdown1">
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'index' %}">MY GRUBS</a></li>
+            <li><a href="{% url 'grubs_create' %}">POST GRUB</a></li>
+            <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+            <li><a href="{% url 'login' %}">LOGIN</a></li>
+          {% endif %}
+        </ul>
  
 
       <a class='dropdown-trigger right hide-on-med-and-up' href='#' data-target='dropdown1'><i class="material-icons">menu</i></a>
         <ul class="nav-text right hide-on-small-only">
-            <li><a href="{% url 'about' %}">ABOUT</a></li>
+            <li ><a href="{% url 'about' %}" class="resize">ABOUT</a></li>
             {% if user.is_authenticated %}
-              <li><a href="{% url 'index' %}">MY GRUBS</a></li>
-              <li><a href="{% url 'grubs_create' %}">ADD</a></li>
-              <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+              <li><a href="{% url 'index' %}" class="resize">MY GRUBS</a></li>
+              <li><a href="{% url 'grubs_create' %}" class="resize">POST GRUB</a></li>
+              <li><a href="{% url 'logout' %}" class="resize">LOGOUT</a></li>
             {% else %}
-              <li><a href="{% url 'signup' %}">SIGNUP</a></li>
-              <li><a href="{% url 'login' %}">LOGIN</a></li>
+              <li><a href="{% url 'signup' %}" class="resize">SIGNUP</a></li>
+              <li><a href="{% url 'login' %}" class="resize">LOGIN</a></li>
             {% endif %}
           </ul>
       </div>
@@ -69,9 +68,21 @@
     </div>
   </main>
   <footer class="page-footer">
-    <div class="footer right">All Rights Reserved, &copy; 2022 UP4GRUBZ &nbsp;</div>
-  </footer>
+    {% now "Y" as current_year %}
+    <div class="footer right">All Rights Reserved, &copy; {{current_year}} UP4GRUBZ &nbsp;</div>
   <script>
+    const findUserLocation =  () => {
+        let approved = (position) => {
+            let Userlatitude = position.coords.latitude
+            let Userlongitude = position.coords.longitude
+
+        }
+        const denied = () => {
+            console.log('location access deinied')
+        }
+        navigator.geolocation.getCurrentPosition(approved, denied)
+    }
+    document.addEventListener('DOMContentLoaded', findUserLocation)
 
     document.addEventListener('DOMContentLoaded', function() {
       const elems = document.querySelectorAll('.dropdown-trigger');
@@ -84,7 +95,57 @@
       const selectOption = document.getElementById('id_option')
       M.FormSelect.init(selectOption)
     })
-    
-  </script>
+      document.addEventListener('DOMContentLoaded', function() {
+      const elems= document.getElementById('id_exp');
+      const instances = M.Datepicker.init(elems,{format: 'yyyy-mm-dd'});
+    }); 
+    let autocomplete
+    function initAutoComplete() {
+    autocomplete = new google.maps.places.Autocomplete(document.getElementById('id_location'),
+      {
+          types:[], 
+          componentRestriction: {'country': ['US']}, 
+          fields: ['place_id','geometry', 'name']
+      })
+    }
+    window.addEventListener('DOMContentLoaded', function () {
+      console.log(window.innerWidth)
+      let col = document.querySelectorAll('section')
+      col.forEach(section => {
+        if (window.innerWidth < 550) {
+         section.classList.remove('col')
+        }
+        })
+     })
+     window.addEventListener('resize', function () {
+       let col = document.querySelectorAll('section')
+       col.forEach(section => {
+          if (window.innerWidth < 550) { 
+            section.classList.remove('col')
+          } else {
+            section.classList.add('col')
+          }
+          })
+       })
+    document.addEventListener('DOMContentLoaded', function() {
+    let tr = document.createElement('tr')
+    let tbody= document.querySelector('tbody')
+    let lastTr= tbody.lastElementChild
+
+    tbody.appendChild(tr).innerHTML = '<th><label>Photos:</label></th><td><input type="file" name="url" id="id_url" multiple></td>'
+
+    let item= document.getElementById('id_item')
+    item.setAttribute('placeholder', 'Enter an item')
+
+    let desc=document.getElementById('id_desc')
+    desc.setAttribute('placeholder', 'Enter a description')
+   
+    document.addEventListener('resize', function (){
+    })
+  })
+</script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key={{places}}&libraries=places&callback=initAutoComplete">
+</script>
 </body>
-</html>
+</html> 
