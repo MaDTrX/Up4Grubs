@@ -1,21 +1,18 @@
-from email.policy import default
-from django.db import models
-from datetime import date
-import datetime
-from django.urls import reverse
 from django.contrib.auth.models import User
+from email.policy import default
+from django.urls import reverse
+from django.db import models
+
 
 TYPE = (
     ('Fresh Produce', 'Fresh'),
     ('Pantry', 'Pantry')
 )
-# Create your models here.
+
 OPTION = (
     ('Pick-up', 'Pick-Up'),
     ('Delivery', 'Delivery')
 )
-#! fix options
-# Create your models here.
 
 class Grub(models.Model):
     item =  models.CharField(
@@ -28,14 +25,12 @@ class Grub(models.Model):
         choices = TYPE,
         default= TYPE[0][0]
     )
-    exp = models.IntegerField(
+    exp = models.DateField(
         'exp date',
-         blank = True, 
+         blank = True,
          null = True
-        #* set exp date to 3 days after the created date
     )
-    #TODO set default date
-    # photo: models.BinaryField
+  
     desc =  models.TextField(
         max_length=250,
         blank = True, 
@@ -52,14 +47,13 @@ class Grub(models.Model):
          null = True
     )
     user = models.ForeignKey(User,  on_delete=models.CASCADE)
-
     def __str__(self):
        return self.item
     #    f'Photo for grub_id: {self.user} @{self.url}'
 
     def get_absolute_url(self):
         return reverse('grubs_detail', kwargs={'pk': self.id})
-      
+
 class Photo(models.Model):
     grub = models.ForeignKey(Grub,  on_delete=models.CASCADE, blank = True, 
          null = True)
@@ -67,8 +61,6 @@ class Photo(models.Model):
         blank = True, 
         null = True,
     )
-
 class Claim(models.Model):
     grub = models.ForeignKey(Grub, on_delete=models.CASCADE, blank = True, null = True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank = True, null = True)
-   

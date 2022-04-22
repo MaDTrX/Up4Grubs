@@ -5,13 +5,13 @@
 
 <div class="card">
     <div class="row">
-        <div class="col s6"> 
+        <section class="col s6"> 
             <div class="card medium">
                 <div class="card-content left-content">
                     <br>
                     <p><strong>POSTED BY:</strong> {{grub.user}}</p>
                     <br>
-                    <p><strong>TYPE:</strong> {{grub.type}}</p>
+                    <p><strong>TYPE:</strong> </p>
                     <br>
                     <p><strong>USE-BY:</strong> {{grub.exp}}</p>
                     <br>
@@ -26,7 +26,7 @@
                         <input type="text" name="id" value="{{grub.id}}"hidden>
                         <input type="text" name="item" value="{{grub.item}}"hidden>
                         <input type="text" name="type" value="{{grub.type}}"hidden>
-                        <input type="text" name="exp" value="{{grub.exp}}"hidden>
+                        <input type="date" name="exp" value="{{grub.exp}}"hidden>
                         <input type="text" name="desc" value="{{grub.desc}}"hidden>
                         <input type="text" name="option" value="{{grub.option}}"hidden>
                         <input type="text" name="location" value="{{grub.location}}"hidden>
@@ -35,8 +35,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="col s6"> 
+        </section>
+        <section class="col s6"> 
             <div class="card medium">
                 <div class="slider">
                     <ul class='slides bg'>
@@ -44,7 +44,7 @@
                         {% if not img.url  %}
                         <img class='responsive-img card medium no-margin' src="https://xn--80aadc3bb0afph5eue.xn--p1ai/images/no_photo.png">
                         {% elif img.grub.id == grub.id %}
-                        <li>
+                        <li class =''>
                             <form action="{% url 'photos_delete' img.id %} " method="GET">
                                 <input type='text' name="id" value='{{ img.grub.id }}' hidden>
                                 <input type='text' name="img" value='{{ img.id }}' hidden>
@@ -58,22 +58,18 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
-
+        </section>
     </div>
 
     <div class="row">
-        <div class="col s6"> 
+        <section class="col s6"> 
             <div class="card-action">
                 <a href='{% url 'grubs_update' grub.id %}' class="btn-large button"> EDIT </a>
                 <a href='{% url 'grubs_delete' grub.id %}' class="btn-large button"> DELETE </a>
             </div>
-        </div>
+        </section>
 
-
-
-        <div class="col s6"> 
+        <section class="col s6"> 
             <div class="card-action">
                 <div>
                     <form action="{% url 'grubs_update' grub.id %}" enctype="multipart/form-data" method="POST">
@@ -81,22 +77,21 @@
                         <input type="text" name="id" value="{{grub.id}}"hidden>
                         <input type="text" name="item" value="{{grub.item}}"hidden>
                         <input type="text" name="type" value="{{grub.type}}"hidden>
-                        <input type="text" name="exp" value="{{grub.exp}}"hidden>
+                        <input type="date" name="exp" value="{{grub.exp}}"hidden>
                         <input type="text" name="desc" value="{{grub.desc}}"hidden>
                         <input type="text" name="option" value="{{grub.option}}"hidden>
                         <input type="text" name="location" value="{{grub.location}}"hidden>
                         <input type="text" name="user" value="{{grub.user}}"hidden>
                         <input type="file" multiple="multiple" name="url" id="file-input" hidden>
-                    </div>  
-                        <div id="inline-block">
-                            <div class="no-padding">
-                                <label><i class="material-icons medium">add_a_photo</i></label>
-                            </div>
-                            <input type="submit" class="btn-large" value="Upload Photo">
+                </div>  
+                    <div id="inline-block">
+                        <div class="no-padding">
+                            <label for="file-input"><i class="material-icons medium">add_a_photo</i></label>
                         </div>
+                        <input type="submit" class="btn-large" value="Upload Photo">
+                    </div>
                     </form>
-        </div>
-
+                </section>
     </div>
 </div>
 
