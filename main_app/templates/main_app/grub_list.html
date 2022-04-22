@@ -37,7 +37,7 @@
               <a href="{% url 'grubs_detail' claim.grub.id %}">
                 <div class="card">
                   <div class="card-content">
-                    <span class="card-title">{{ claim.grub }}</span>
+                    <span class="card-title">{{ claim.grub.user }}</span>
                     <p>From: {{claim.user}}</p>
                     <p>{{claim.grub.location}}</p>
                   </div>
