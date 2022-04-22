@@ -19,7 +19,7 @@ opacity: .95;
 .nav-wrapper {
 background-color: rgb(252, 81, 88) ;
 font-family: 'Londrina Solid', cursive;
-font-size: 20px;
+font-size: 30px;
 display: flex;
 justify-content: space-between;
 flex-wrap: nowrap;
@@ -32,11 +32,9 @@ font-family: 'Londrina Solid', cursive;
 
 #grubs-logo:after {
 font-family: 'Londrina Shadow', cursive;
-font-size: 60px;
+font-size: 40px;
 content:'UP4GRUBZ';
 color: white;
-/* color: rgb(18, 50, 125);  */
-/* color: rgb(255, 185, 201); */
 } 
 
 #grubs-logo:hover:after{
@@ -45,11 +43,23 @@ font-size: 50px;
 color: rgb(252, 229, 88);
 }
 
+#grubs-logo {
+  background-color: rgba(240, 248, 255, 0);
+  padding: 0;
+  animation: wiggle infinite 3s alternate;
+}
+@keyframes wiggle {
+  0% {transform: rotate(0.4deg);}
+  25% {transform: rotate(-1deg);}
+  50% {transform: rotate(2deg);}
+  75% {transform: rotate(-0.4deg);}
+  100% {transform: rotate(1deg);}
+}
+
 .grubs {
 font-family: 'Londrina Shadow', cursive;
 font-size: 50px;
 color: rgb(252, 81, 88) ;
-/* color: rgb(4, 153, 172)  */
 } 
 
 .no-margin {
@@ -85,3 +95,9 @@ background-color: rgb(4, 153, 172)
 .slides.bg {
   background-color: white !important;
 }
+
+.resize {
+  font-size: 23px !important;
+  color: rgb(255, 185, 201);
+}
+

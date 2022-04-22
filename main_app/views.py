@@ -96,12 +96,10 @@ class GrubCreate(LoginRequiredMixin, CreateView):
 class GrubUpdate(LoginRequiredMixin, UpdateView):
     model = Grub 
     fields = ['item','type','exp','desc', 'option', 'location']
-
     def get_context_data(self, **kwargs):
         places = super(GrubUpdate, self).get_context_data(**kwargs)
         places['places'] = os.environ.get('PLACES_API')
         return places
-
     def form_valid(self, form):
         super().form_valid(form) 
         photo_file = self.request.FILES.getlist('url', None)
