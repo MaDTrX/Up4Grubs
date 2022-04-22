@@ -16,8 +16,8 @@ https://user-images.githubusercontent.com/99706973/164625300-71f569c9-f8b0-43d9-
 Technologies used: Python, Django, PostgreSQL, HTML, CSS, Amazon Web Services, Javascript, Heroku, Trello, Google Places API (Autocomplete, Markers), Google Materialize,  
 
 UP4GRUBZ:
-<img width="879" alt="Screen Shot 2022-04-21 at 12 25 57 PM" src="https://user-images.githubusercontent.com/99706973/164625240-96671775-0324-4dea-b720-9d1cd9a2a1e2.png">
-https://user-images.githubusercontent.com/99706973/164625300-71f569c9-f8b0-43d9-88b0-13cb4b197a48.png">
+<img width="1094" alt="Screen Shot 2022-04-21 at 11 51 42 PM" src="https://user-images.githubusercontent.com/99706973/164625300-71f569c9-f8b0-43d9-88b0-13cb4b197a48.png">
+
 
 
 
