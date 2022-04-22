@@ -101,3 +101,12 @@ background-color: rgb(4, 153, 172)
   color: rgb(255, 185, 201);
 }
 
+a > div:hover {
+  background-color: rgba(183, 183, 183, 0.84);
+  color: black
+}
+@media only screen and (max-width: 600px) {
+  input {
+    width: 80%
+  }
+}
