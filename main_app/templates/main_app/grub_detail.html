@@ -2,7 +2,6 @@
 {%  block content %}
 
 <h1 class="grubs">{{ grub.item }}</h1>
-
 <div class="card">
     <div class="row">
         <section class="col s6"> 
@@ -11,7 +10,7 @@
                     <br>
                     <p><strong>POSTED BY:</strong> {{grub.user}}</p>
                     <br>
-                    <p><strong>TYPE:</strong> {{grub.type}}< </p>
+                    <p><strong>TYPE:</strong> {{grub.type}}</p>
                     <br>
                     <p><strong>USE-BY:</strong> {{grub.exp}}</p>
                     <br>
@@ -19,7 +18,9 @@
                     <br>
                     <p><strong>OPTIONS:</strong> {{grub.option}}</p>
                 </div>
-               
+                
+                {% if request.user == grub.user  %}
+                {% else %}
                 <div class="card-action">
                     <h5 class="left">GRAB THIS GRUB!</h5>
                     <form action="{% url 'claims_create' %}" method="GET">
@@ -35,6 +36,7 @@
                     <button class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></button>
                     </form>
                 </div>
+                {% endif %}
             </div>
         </section>
         <section class="col s6"> 
@@ -61,7 +63,7 @@
             </div>
         </section>
     </div>
-
+    {% if request.user == grub.user %}
     <div class="row">
         <section class="col s6"> 
             <div class="card-action">
@@ -93,7 +95,9 @@
                     </div>
                     </form>
                 </section>
-    </div>
+            </div>
+                {% else %}
+                {% endif %}
 </div>
 
 <label>Location:</label><p id='location'>{{grub.location}}</p>
